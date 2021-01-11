@@ -1,31 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
+
 const GetUserInfo = () => {
-  useEffect(() => {
+
+  
     const fetchInformation = async () => {
       const res = await axios.get("http://localhost:3001/information");
       const info = res.data;
       setInfo(info);
+      setToggle(true)
       console.log(res);
+  
     };
-    fetchInformation();
-  }, []);
+   
+
 
   const [info, setInfo] = useState([]);
 
+
+const[toggle,setToggle] = useState(false)
+
+
+  
   return (
+    
     <div>
-        <button>Show-info</button>
-      {info.map((info) => (
-        <ul>
-          <li>{info.firstName}</li>
-          <li>{info.lastName}</li>
-          <li>{info.email}</li>
-          <li>{info.password}</li>
-        </ul>
-      ))}
-      
+     
+       
+       <button onClick={fetchInformation}>show-Info</button> 
+       
+        
+        {info.map((info) => (
+          <ul key={info._id}>
+
+            <li>First Name:  {info.firstName}</li>
+            <li>Last Name:  {info.lastName}</li>
+            <li>Email:  {info.email}</li>
+            <li>Password: {info.password}</li>
+          </ul> 
+        
+        ))} 
+        
+       
+       
     </div>
   );
 };
